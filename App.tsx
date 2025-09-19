@@ -38,7 +38,7 @@ const App: React.FC = () => {
   const HeroContent: React.FC = () => (
     <div className="text-center">
         <img src="https://picsum.photos/seed/agriculture/1200/300" alt="Campo agrícola" className="w-full h-48 object-cover rounded-lg mb-6 shadow-lg" />
-        <h1 className="text-4xl font-bold text-gray-800 mb-2">Agro Preço Brasil</h1>
+        <h1 className="text-4xl font-bold text-gray-800 mb-2">Agro Preço Marola</h1>
         <p className="text-lg text-gray-600">Cotações de commodities agrícolas com o poder da IA.</p>
     </div>
   );

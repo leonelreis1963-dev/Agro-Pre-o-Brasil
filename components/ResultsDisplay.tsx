@@ -5,6 +5,7 @@ import { CalendarIcon } from './icons/CalendarIcon';
 import { ChartIcon } from './icons/ChartIcon';
 import { FuturePricesChart } from './FuturePricesChart';
 import { SearchIcon } from './icons/SearchIcon';
+import { HarvestIcon } from './icons/HarvestIcon';
 
 interface ResultsDisplayProps {
   data: PriceData;
@@ -90,6 +91,16 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ data, onReset })
         <h3 className="text-xl font-semibold text-gray-700 mb-3">Análise Rápida</h3>
         <p className="text-gray-600 bg-slate-50 p-4 rounded-lg border border-slate-200">{data.analysis}</p>
       </section>
+
+      {data.harvestForecast && (
+        <section className="mt-8">
+          <h3 className="text-xl font-semibold text-gray-700 mb-3 flex items-center">
+            <HarvestIcon />
+            <span className="ml-2">Previsão de Safra</span>
+          </h3>
+          <p className="text-gray-600 bg-slate-50 p-4 rounded-lg border border-slate-200">{data.harvestForecast}</p>
+        </section>
+      )}
 
       <div className="mt-8 pt-6 border-t border-gray-200 text-center">
         <button

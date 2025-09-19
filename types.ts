@@ -15,4 +15,5 @@ export interface PriceData {
   currentPrice: CurrentPrice;
   futurePrices: FuturePrice[];
   analysis: string;
+  harvestForecast?: string;
 }

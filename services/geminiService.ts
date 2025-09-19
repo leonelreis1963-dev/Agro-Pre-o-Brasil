@@ -32,12 +32,13 @@ const responseSchema = {
       },
     },
     analysis: { type: Type.STRING, description: "Análise curta, com no máximo 2 sentenças." },
+    harvestForecast: { type: Type.STRING, description: "Previsão da safra atual ou futura para o produto, se disponível." },
   },
   required: ['productName', 'unit', 'currentPrice', 'futurePrices', 'analysis'],
 };
 
 export async function fetchAgriculturalPrices(productName: string): Promise<PriceData> {
-  const prompt = `Pesquise os preços de hoje e os preços futuros para '${productName}' no mercado agrícola brasileiro. Para os preços futuros, forneça cotações para contratos com vencimento nos próximos 2 anos (por exemplo, contratos para 2025 e 2026). Forneça uma breve análise de mercado com no máximo 2 sentenças. Use BRL como moeda.`;
+  const prompt = `Pesquise os preços de hoje e os preços futuros para '${productName}' no mercado agrícola brasileiro. Para os preços futuros, forneça cotações para contratos com vencimento nos próximos 2 anos (por exemplo, contratos para 2025 e 2026). Forneça uma breve análise de mercado com no máximo 2 sentenças. Use BRL como moeda. Inclua também a previsão da safra para este produto, se houver dados disponíveis.`;
 
   try {
     const response = await ai.models.generateContent({
