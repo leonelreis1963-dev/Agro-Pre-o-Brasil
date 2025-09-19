@@ -1,4 +1,3 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 import type { PriceData } from '../types';
 
@@ -38,7 +37,7 @@ const responseSchema = {
 };
 
 export async function fetchAgriculturalPrices(productName: string): Promise<PriceData> {
-  const prompt = `Pesquise os preços de hoje e futuros para '${productName}' no mercado agrícola brasileiro. Forneça uma breve análise de mercado com no máximo 2 sentenças. Use BRL como moeda.`;
+  const prompt = `Pesquise os preços de hoje e os preços futuros para '${productName}' no mercado agrícola brasileiro. Para os preços futuros, forneça cotações para contratos com vencimento nos próximos 2 anos (por exemplo, contratos para 2025 e 2026). Forneça uma breve análise de mercado com no máximo 2 sentenças. Use BRL como moeda.`;
 
   try {
     const response = await ai.models.generateContent({

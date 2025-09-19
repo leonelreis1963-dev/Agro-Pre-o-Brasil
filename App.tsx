@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { SearchBar } from './components/SearchBar';
 import { ResultsDisplay } from './components/ResultsDisplay';
@@ -6,6 +5,7 @@ import { LoadingSpinner } from './components/LoadingSpinner';
 import { ErrorMessage } from './components/ErrorMessage';
 import { PriceData } from './types';
 import { fetchAgriculturalPrices } from './services/geminiService';
+import { QuickSearch } from './components/QuickSearch';
 
 const App: React.FC = () => {
   const [priceData, setPriceData] = useState<PriceData | null>(null);
@@ -30,6 +30,11 @@ const App: React.FC = () => {
     }
   }, []);
 
+  const handleReset = useCallback(() => {
+    setPriceData(null);
+    setError(null);
+  }, []);
+
   const HeroContent: React.FC = () => (
     <div className="text-center">
         <img src="https://picsum.photos/seed/agriculture/1200/300" alt="Campo agrícola" className="w-full h-48 object-cover rounded-lg mb-6 shadow-lg" />
@@ -38,6 +43,8 @@ const App: React.FC = () => {
     </div>
   );
 
+  const popularProducts = ['Soja Uberlândia', 'Milho Uberlândia', 'Boi Gordo Uberlândia'];
+
   return (
     <div className="bg-slate-50 min-h-screen">
       <main className="container mx-auto px-4 py-8 md:py-12">
@@ -45,10 +52,18 @@ const App: React.FC = () => {
           {!priceData && !isLoading && !error && <HeroContent />}
           <SearchBar onSearch={handleSearch} isLoading={isLoading} />
           
+          {!priceData && !isLoading && !error && (
+            <QuickSearch 
+              products={popularProducts}
+              onSearch={handleSearch}
+              isLoading={isLoading}
+            />
+          )}
+
           <div className="mt-8">
             {isLoading && <LoadingSpinner />}
             {error && <ErrorMessage message={error} />}
-            {priceData && <ResultsDisplay data={priceData} />}
+            {priceData && <ResultsDisplay data={priceData} onReset={handleReset} />}
           </div>
         </div>
       </main>
