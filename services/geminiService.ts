@@ -1,10 +1,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import type { PriceData } from '../types';
 
-if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set");
-}
-
+// Fix: Use process.env.API_KEY for API key initialization to align with guidelines and resolve TypeScript error.
+// The API key must be obtained from process.env.API_KEY and is assumed to be available in the execution context.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const responseSchema = {
