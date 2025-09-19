@@ -4,12 +4,11 @@ import { SearchBar } from './components/SearchBar';
 import { ResultsDisplay } from './components/ResultsDisplay';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { ErrorMessage } from './components/ErrorMessage';
-import { PriceData, GroundingSource } from './types';
+import { PriceData } from './types';
 import { fetchAgriculturalPrices } from './services/geminiService';
 
 const App: React.FC = () => {
   const [priceData, setPriceData] = useState<PriceData | null>(null);
-  const [sources, setSources] = useState<GroundingSource[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,12 +18,10 @@ const App: React.FC = () => {
     setIsLoading(true);
     setError(null);
     setPriceData(null);
-    setSources([]);
 
     try {
-      const { priceData: data, sources: fetchedSources } = await fetchAgriculturalPrices(product);
+      const data = await fetchAgriculturalPrices(product);
       setPriceData(data);
-      setSources(fetchedSources);
     } catch (err) {
       console.error(err);
       setError(err instanceof Error ? err.message : 'Ocorreu um erro desconhecido. Por favor, tente novamente.');
@@ -51,7 +48,7 @@ const App: React.FC = () => {
           <div className="mt-8">
             {isLoading && <LoadingSpinner />}
             {error && <ErrorMessage message={error} />}
-            {priceData && <ResultsDisplay data={priceData} sources={sources} />}
+            {priceData && <ResultsDisplay data={priceData} />}
           </div>
         </div>
       </main>

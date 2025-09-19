@@ -1,13 +1,12 @@
 
 import React from 'react';
-import type { PriceData, GroundingSource } from '../types';
+import type { PriceData } from '../types';
 import { BRLIcon } from './icons/BRLIcon';
 import { CalendarIcon } from './icons/CalendarIcon';
 import { ChartIcon } from './icons/ChartIcon';
 
 interface ResultsDisplayProps {
   data: PriceData;
-  sources: GroundingSource[];
 }
 
 const InfoCard: React.FC<{
@@ -28,7 +27,7 @@ const InfoCard: React.FC<{
 );
 
 
-export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ data, sources }) => {
+export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ data }) => {
   return (
     <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg animate-fade-in">
       <header className="mb-6 pb-4 border-b border-gray-200">
@@ -78,31 +77,10 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ data, sources })
         </div>
       </section>
 
-      <section className="mb-8">
+      <section>
         <h3 className="text-xl font-semibold text-gray-700 mb-3">Análise Rápida</h3>
         <p className="text-gray-600 bg-slate-50 p-4 rounded-lg border border-slate-200">{data.analysis}</p>
       </section>
-      
-      {sources.length > 0 && (
-        <section>
-          <h3 className="text-xl font-semibold text-gray-700 mb-3">Fontes</h3>
-          <ul className="space-y-2">
-            {sources.map((source, index) => (
-              <li key={index} className="text-sm">
-                <a 
-                  href={source.web.uri} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-emerald-700 hover:text-emerald-900 hover:underline truncate block"
-                  title={source.web.title}
-                >
-                  {index + 1}. {source.web.title || source.web.uri}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
     </div>
   );
 };
